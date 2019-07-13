@@ -5,6 +5,7 @@ var express = require("express");
 // var verifyToken = require('../verifyToken')
 
 exports.params = function (req, res, next, id) {
+    console.log("DEBUG:: API:-> ")
      console.log("Id :"+ id)
      Roommate.findById(id)
          .then(function (roommate, err) {
@@ -23,8 +24,34 @@ exports.params = function (req, res, next, id) {
 
          });
 }
+exports.area_city = function (req, res, next, area, city) {
+    console.log("DEBUG:: In Area City ")
+     console.log("DEBUG:: Area :"+ area)
+     console.log("DEBUG:: City :" + city )
+     console.log("Res: "+ res)
+     Roommate.find({$or : [{area:area},{city:city}]})
+         .then(function (roommate, err) {
+             console.log("DEBUG:: Roommate :" + roommate)
+             console.log("DEBUG:: Error :" + err)
+             console.log("DEBUG ::" )
+             if (!roommate) {
+                 console.log("In If Loop ")
+                 console.log("Error: ")
+                 next(new Error('No Roommates :with area " + area " city " + city '));
+             } else {
+                 console.log("In Else")
+                 req.roommate = roommate;
+                 next();
+             }
+         }, function (err) {
+             next(err);
+
+         });
+}
+
 
 exports.get = function (req, res) {
+    console.log("DEBUG:: API :-> /roomates/, Method : GET , get ")
     Roommate.find({})
         .then((requests) => {
             res.status(200).send(requests);
@@ -35,18 +62,21 @@ exports.get = function (req, res) {
 };
 
 // Needs Fix
-exports.get ("/:area/:city", (req,res)=>{
-     var area=req.params.area;
-     var city=req.params.city;
+exports.get_area_city = function (req,res) {
+     console.log("DEBUG:: API :-> users/:area/:city, Method: GET, get_area_city")
+     var roommate = req.roommate;
+     res.json(roommate);
+    //  var area=req.params.area;
+    //  var city=req.params.city;
 
-     Roommate.RoommateRequest.find({$or : {area:area,city:city}})
-     .then((requests)=>{
-         res.status(200).send(requests);
-     })
-     .catch((err)=>{
-         res.status(500).send(err)
-     })
- });
+    // Roommate.RoommateRequest.find({$or : {area:area,city:city}})
+    // .then((requests)=>{
+    //     res.status(200).send(requests);
+    //  })
+    // .catch((err)=>{
+    //     res.status(500).send(err)
+    // })
+ };
 
 exports.getOne = function (req, res, next) {
    console.log("DEBUG:: users getOne ")
