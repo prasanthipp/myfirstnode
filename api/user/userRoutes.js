@@ -15,7 +15,7 @@ router.route('/:id')
 router.route('/:id/logout')
   .get(controller.logout)
 
-router.route('/:id/me')
+router.route('/me')
   .get(controller.me)
 
 router.route('/login')

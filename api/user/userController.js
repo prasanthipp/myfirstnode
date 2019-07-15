@@ -106,7 +106,7 @@ exports.login = function (req, res) {
     console.log("DEBUG:: In Login")
     console.log("DEBUG :: Reg Body " + req.body)
         User.findOne({
-            email: req.body.name
+            username: req.body.username
         })
             .then((user) => {
                 if (!user) return res.status(404).send('No user found.');
@@ -132,7 +132,7 @@ exports.login = function (req, res) {
             })
     }
 
-exports.me = ("/me", verifyToken, (req, res) => {
+exports.me = (verifyToken, (req, res, next) => {
     console.log("DEBUG:: /id/me ")
         User.findById(req.userId, { password: 0 })
             .then((user) => {
