@@ -17,6 +17,11 @@ router.route('/:id')
 
 //router.route('/me')
 //  .get(controller.me)
+router.route('/:id/logout')
+  .get(controller.logout)
+
+router.route('/me')
+  .get(controller.me)
 
 router.route('/login')
   .post(controller.login)
@@ -25,4 +30,5 @@ router.route('/register')
   .post(controller.register)
 
 module.exports=router;
+
 
