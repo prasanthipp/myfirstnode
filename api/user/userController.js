@@ -21,7 +21,7 @@ exports.params = function (req, res, next, id) {
     console.log("DEBUG:: In Id:" + id)
     User.findById(id)
         .then(function (user,err) {
-        .then(function (user, err) {
+        
             console.log("DEBUG:: User:" + user)
             console.log("DEBUG:: Error:" + err)
             // !user.name
@@ -147,7 +147,7 @@ exports.login = function (req, res) {
     console.log("DEBUG:: In Login")
     // console.log("DEBUG :: Reg Body " + req.body)
     console.log(req.body.username);
-    console.log("DEBUG :: Reg Body " + req.body)
+   // console.log("DEBUG :: Reg Body " + req.body)
         User.findOne({
             username: req.body.username
         })
