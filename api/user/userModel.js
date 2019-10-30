@@ -5,9 +5,7 @@ var UserSchema = new Schema({
   name:{
     type: String,
     required: true
-    
   },
- 
   phone:Number,
   username: {
     type: String,
@@ -25,4 +23,4 @@ var UserSchema = new Schema({
 });
 
 
-module.exports = mongoose.model('user', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
